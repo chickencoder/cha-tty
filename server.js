@@ -15,13 +15,27 @@ function Client(stream, address) {
   this.uname   = "";
 }
 
+// Just something useful for later on
+String.prototype.contains = function(it) { 
+  return this.indexOf(it) != -1; 
+};
+
+console.log("[cha-TTY] Running server on port 7000...")
+console.log("[cha-TTY] Ctrl-C to stop!")
+
 net.createServer(function(stream){
   c = new Client(stream, stream.remoteAddress);
-  console.log("New Client! " + stream.remoteAddress);
-  
+  console.log("[cha-TTY] New Client has joined " + stream.remoteAddress);
+
   c.stream.on('data', function(data){
     data = data.toString().trim();
-    c.stream.write(data);
+    if (data.contains('usr')) {
+      var i = data.split('::');
+      username = i[1];
+      c.uname = username;
+      console.log("[cha-TTY] " + stream.remoteAddress + " identified as: " + username);
+    }
+
   });
 
 }).listen(port, host);

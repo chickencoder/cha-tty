@@ -35,10 +35,19 @@ rl.question("Desired Room Address: ", function(address){
 });
 
 function connect(address, port, username) {
+  // Before we connect, setup terminal
+  // so to respond and interact with 
+  // charm. Then clear the screen.
+  charm.pipe(process.stdout);
+  charm.reset();
+
   var client = net.connect({port: port, host: address}, function(){
     // On First Connect, Client must send meta string
    console.log("Connected Successfully!");
   });
+
+  // Send Meta Package
+  client.write('usr::' + username);
 
   client.on('data', function(data){
 
