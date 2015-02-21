@@ -1,0 +1,8 @@
+{
+  "name": "cha-tty",
+  "description": "A self-hosted terminal chatroom",
+  "dependencies": {
+    "charm": "*",
+    "colors": "*"
+  }
+}

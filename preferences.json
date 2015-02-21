@@ -1,0 +1,7 @@
+{
+  "server-name": "cha-tty server",
+  "adminMessage": "H",
+  "clientLimit": 20,
+  "black-list": { },
+  "colours" :  true
+}
