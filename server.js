@@ -5,9 +5,17 @@
 
 var net = require("net");
 
-var config = require("./preferences.json");
 var port = 7000;
 var host = 'localhost';
+
+var prefs;
+try {
+  prefs = require("./pref.json");
+} catch (err) {
+  console.log("[cha-TTY] ERR: PREF.JSON NOT FOUND!");
+  console.log("[ FORCED EXIT ]");
+  process.exit();
+}
 
 function Client(stream, address) {
   this.stream  = stream;
@@ -16,8 +24,8 @@ function Client(stream, address) {
 }
 
 // Just something useful for later on
-String.prototype.contains = function(it) { 
-  return this.indexOf(it) != -1; 
+String.prototype.contains = function(it) {
+  return this.indexOf(it) != -1;
 };
 
 console.log("[cha-TTY] Running server on port 7000...")
@@ -29,13 +37,10 @@ net.createServer(function(stream){
 
   c.stream.on('data', function(data){
     data = data.toString().trim();
-    if (data.contains('usr')) {
-      var i = data.split('::');
-      username = i[1];
-      c.uname = username;
-      console.log("[cha-TTY] " + stream.remoteAddress + " identified as: " + username);
+
+    if (data.contains('UNAME')){
+      var uname = data.split(':')[1];
+      c.uname = uname;
     }
-
   });
-
 }).listen(port, host);

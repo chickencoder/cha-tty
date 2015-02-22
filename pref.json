@@ -1,0 +1,13 @@
+{
+  "server-name": "cha-tty server",
+  "server-message": "Just a little cha-tty server!",
+  "userLimit": 1000,
+  "black-list": { },
+  "color-scheme": {
+    "uname": "white",
+    "bg": "blue",
+    "fg": "grey",
+    "highlight": "yellow"
+  }
+
+}
